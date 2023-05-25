@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tools', include("tools.urls")),
+    path('tools/', include("tools.urls")),
+    path('tools/mx_converter/', include("tools.urls")),
 ]
