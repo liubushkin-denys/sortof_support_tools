@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
+from whois import whois 
+import pandas as pd
+from dns.resolver import resolve
 
 # Create your views here.
 def index(request):
@@ -30,5 +33,60 @@ def mx_converter(request):
         context = {
 
     }
-    
+    return HttpResponse(template.render(context, request))
+        
+@csrf_exempt
+def domain(request):
+    whois_data = 0
+    domain = 0
+    if request.method == "POST":
+        domain = str(request.POST["domain"])
+        domain = domain.strip("/").strip("https:").strip("https://")
+        #Gathering and formatting WHOIS data
+        whois_data = whois(domain)
+        domain_name = whois_data["domain_name"][1]
+        registrar = whois_data["registrar"]
+        if type(whois_data["expiration_date"]) == list:
+            expiration_date = whois_data["expiration_date"][0]
+        else:
+            expiration_date = whois_data["expiration_date"]
+        updated_date = whois_data["updated_date"]
+        if type(whois_data["creation_date"]) == list:
+            creation_date = whois_data["creation_date"][0]
+        else:
+            creation_date = whois_data["creation_date"]
+        if type(whois_data["expiration_date"]) == list:
+            expiration_date = whois_data["expiration_date"][0]
+        else:
+            expiration_date = whois_data["expiration_date"]
+        name_servers = whois_data["name_servers"][len(whois_data["name_servers"])//2:]
+        status = whois_data["status"]
+
+        #Gathering and formatting DNS records
+        blank_a = resolve(domain, 'A')
+        www_a = resolve(f'www.{domain}', 'A')
+        mx = resolve(domain, "MX")
+        ns = resolve(domain, "NS")
+        txt = resolve(domain, "TXT")
+
+    template = loader.get_template("tools/domain.html")
+    if whois_data == 0:
+        context = {
+
+        }
+    else:
+        context = {
+            "domain_name" : domain_name,
+            "registrar" : registrar,
+            "updated_date" : updated_date,
+            "creation_date" : creation_date,
+            "expiration_date" : expiration_date,
+            "name_servers" : name_servers,
+            "status" : status,
+            "blank_a" : blank_a,
+            "www_a" : www_a,
+            "mx" : mx,
+            "ns" : ns,
+            "txt" : txt,
+            }
     return HttpResponse(template.render(context, request))

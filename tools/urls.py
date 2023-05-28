@@ -6,4 +6,5 @@ app_name = 'tools'
 urlpatterns = [
     path("", views.index, name="index"),
     path("mx_converter/", views.mx_converter, name="mx_converter"),
+    path("domain/", views.domain, name="domain"),
 ]
