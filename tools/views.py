@@ -54,8 +54,6 @@ def domain(request):
             }
             print('i am about to return')
             return HttpResponse(template.render(context, request))
-        print(whois_data)         
-        
         if type(whois_data["domain_name"]) == list:
             domain_name = whois_data["domain_name"][0].lower()
         else:
@@ -76,8 +74,9 @@ def domain(request):
             expiration_date = whois_data["expiration_date"][0]
         else:
             expiration_date = whois_data["expiration_date"]
-
-        name_servers = whois_data["name_servers"][len(whois_data["name_servers"])//2:]
+        for i in range(0, len(whois_data["name_servers"])):
+            whois_data["name_servers"][i] = whois_data["name_servers"][i].lower()
+        name_servers = set(whois_data["name_servers"])
         status = whois_data["status"]
 
         #Gathering and formatting DNS records

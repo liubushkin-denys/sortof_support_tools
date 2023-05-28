@@ -28,13 +28,13 @@
     <li>Creation Date: {{ creation_date }}</li>
     <li>Expiration Date: {{ expiration_date }}</li>
     <br>
-    <ul>Name Servers:
+    <ul>Name Servers
         {% for ns in name_servers %}
         <li>{{ns}}</li>
         {% endfor %}
     </ul>
     <br>
-    <ul>Status:
+    <ul>Status
         {% if status|length < 15 %}
         {% for s in status %}
         <li>{{ s }}</li>

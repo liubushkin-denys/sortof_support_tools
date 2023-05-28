@@ -51,6 +51,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+STATICFILES_DIRS = [
+    "C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\static/",
+    "/home/dlsuppto/django-apps/sortof_support_tools/static/",
+      "http://dlsupptools.fun/static/"]
+
 ROOT_URLCONF = 'sortof_support_tools.urls'
 
 TEMPLATES = [
@@ -117,9 +122,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+STATIC_ROOT = ''
+
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = ("C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\tools\\static", 
+                    "/home/dlsuppto/django-apps/sortof_support_tools")
 
 
 # Default primary key field type
