@@ -9,10 +9,15 @@
 
 <form method="post">
     <br><br><br>
-    <input type="text" id="domain" name="domain" size="20" value="{{ domain }}" placeholder="domain.tld" autocomplete="off">
+    <input type="text" id="domain" name="domain" size="40" value="{{ domain }}" placeholder="domain.tld" autocomplete="off">
     <br>
     <input type="submit" value="Lookup">
 </form>
+    <div style="color: #FAFAFA">
+    {% if e %}
+    {{ e }}
+    {% endif %}
+    </div>
     {% if domain_name %}
     <div class="row" style="color: #FAFAFA">
     <div class="column">

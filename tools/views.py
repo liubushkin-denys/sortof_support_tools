@@ -37,13 +37,25 @@ def mx_converter(request):
         
 @csrf_exempt
 def domain(request):
+    template = loader.get_template("tools/domain.html")
     whois_data = 0
     domain = 0
     if request.method == "POST":
-        domain = str(request.POST["domain"])
-        domain = domain.strip("/").strip("https:").strip("https://")
+        domain = str(request.POST["domain"]).replace('https://', '').replace('http://', '').replace('/','')
+        print(domain)
         #Gathering and formatting WHOIS data
-        whois_data = whois(domain)
+        try: 
+            whois_data = whois(domain)
+        except Exception as e:
+            print(f'e = {e}')
+            context = {
+                "no_domain" : 1,
+                "e" : e,
+            }
+            print('i am about to return')
+            return HttpResponse(template.render(context, request))
+        print(whois_data)         
+        
         if type(whois_data["domain_name"]) == list:
             domain_name = whois_data["domain_name"][0].lower()
         else:
@@ -64,18 +76,17 @@ def domain(request):
             expiration_date = whois_data["expiration_date"][0]
         else:
             expiration_date = whois_data["expiration_date"]
-            
+
         name_servers = whois_data["name_servers"][len(whois_data["name_servers"])//2:]
         status = whois_data["status"]
 
         #Gathering and formatting DNS records
+        print(domain)
         blank_a = resolve(domain, 'A')
         www_a = resolve(f'www.{domain}', 'A')
         mx = resolve(domain, "MX")
         ns = resolve(domain, "NS")
         txt = resolve(domain, "TXT")
-
-    template = loader.get_template("tools/domain.html")
     if whois_data == 0:
         context = {
 
