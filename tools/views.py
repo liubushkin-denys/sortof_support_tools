@@ -44,21 +44,27 @@ def domain(request):
         domain = domain.strip("/").strip("https:").strip("https://")
         #Gathering and formatting WHOIS data
         whois_data = whois(domain)
-        domain_name = whois_data["domain_name"][1]
-        registrar = whois_data["registrar"]
-        if type(whois_data["expiration_date"]) == list:
-            expiration_date = whois_data["expiration_date"][0]
+        if type(whois_data["domain_name"]) == list:
+            domain_name = whois_data["domain_name"][0].lower()
         else:
-            expiration_date = whois_data["expiration_date"]
-        updated_date = whois_data["updated_date"]
+            domain_name = whois_data["domain_name"].lower()
+        registrar = whois_data["registrar"]
+
+        if type(whois_data["updated_date"]) == list:
+            updated_date = whois_data["updated_date"][0]
+        else:
+            updated_date = whois_data["updated_date"]
+
         if type(whois_data["creation_date"]) == list:
             creation_date = whois_data["creation_date"][0]
         else:
             creation_date = whois_data["creation_date"]
+
         if type(whois_data["expiration_date"]) == list:
             expiration_date = whois_data["expiration_date"][0]
         else:
             expiration_date = whois_data["expiration_date"]
+            
         name_servers = whois_data["name_servers"][len(whois_data["name_servers"])//2:]
         status = whois_data["status"]
 
