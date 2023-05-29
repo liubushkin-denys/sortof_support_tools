@@ -121,14 +121,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = 'sortof_support_tools/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = 'sortof_support_tools/static/'
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-STATICFILES_DIRS = (
-    os.path.join(SITE_ROOT, '../static/'),
-)
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'sortof_support_tools/static/')
+]
+
+#STATICFILES_DIRS = (
+#    os.path.join(SITE_ROOT, 'static/'),
+#)
 
 #STATICFILES_DIRS = ("C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\static", 
 #                    "/home/dlsuppto/django-apps/sortof_support_tools/static")
