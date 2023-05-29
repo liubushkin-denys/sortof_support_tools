@@ -18,6 +18,11 @@
     {{ e }}
     {% endif %}
     </div>
+
+    {% if no_domain %}
+    <div style="color:#FAFAFA ">Domain does not exist.</div>
+    {% endif %}
+
     {% if domain_name %}
     <div class="row" style="color: #FAFAFA">
     <div class="column">
