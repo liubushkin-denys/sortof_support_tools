@@ -21,8 +21,12 @@ def mx_converter(request):
         mx = str(request.POST["mx"])
         mx = mx.replace("\n", " ").replace("\r", " ").replace("\t", " ").replace("IN", "").strip().split()
         formatted_mx = ""
-        for i in range(0, len(mx), 3):
-            formatted_mx += f"Type: {mx[i]}\nPriority: {mx[i+1]}\nValue: {mx[i+2]}\n\n"
+        if 'MX' in mx:
+            for i in range(0, len(mx), 3):
+                formatted_mx += f"Type: {mx[i]}\nPriority: {mx[i+1]}\nValue: {mx[i+2]}\n\n"
+        else:
+            for i in range(0, len(mx), 2):
+                formatted_mx += f"Type: MX\nPriority: {mx[i]}\nValue: {mx[i+1]}\n\n"
         mx = formatted_mx
         template = loader.get_template("tools/mx_converter.html")
         context = {
@@ -30,8 +34,9 @@ def mx_converter(request):
         }
     else:
         template = loader.get_template("tools/mx_converter.html")
+        placeholder = """IN MX PRIORITY VALUE\n\nOR\n\nPRIORITY VALUE"""
         context = {
-
+            "placeholder" : placeholder,
     }
     return HttpResponse(template.render(context, request))
         
@@ -46,14 +51,25 @@ def domain(request):
         #Gathering and formatting WHOIS data
         try: 
             whois_data = whois(domain)
+            print(whois_data)
         except Exception as e:
-            print(f'e = {e}')
+            print(e)
             context = {
                 "no_domain" : 1,
                 "e" : e,
             }
             print('i am about to return')
             return HttpResponse(template.render(context, request))
+        
+        print(type(whois_data["domain_name"]))
+        print(whois_data['domain_name'])
+        if(whois_data["domain_name"]) == None:
+            print("domain name = null")
+            context = {
+                "no_domain" : 1,
+            }
+            return HttpResponse(template.render(context, request))
+
         if type(whois_data["domain_name"]) == list:
             domain_name = whois_data["domain_name"][0].lower()
         else:
@@ -81,11 +97,31 @@ def domain(request):
 
         #Gathering and formatting DNS records
         print(domain)
-        blank_a = resolve(domain, 'A')
-        www_a = resolve(f'www.{domain}', 'A')
-        mx = resolve(domain, "MX")
-        ns = resolve(domain, "NS")
-        txt = resolve(domain, "TXT")
+        try:
+            blank_a = resolve(domain, 'A')
+        except Exception as e:
+            print(e)
+            blank_a = "None"
+        try:
+            www_a = resolve(f'www.{domain}', 'A')
+        except Exception as e:
+            print(e)
+            www_a = "None"
+        try:
+            mx = resolve(domain, "MX")
+        except Exception as e:
+            print(e)
+            mx = "None"
+        try:
+            ns = resolve(domain, "NS")
+        except Exception as e:
+            print(e)
+            ns = "None"
+        try:
+            txt = resolve(domain, "TXT")
+        except Exception as e:
+            print(e)
+            txt = "None"
     if whois_data == 0:
         context = {
 
