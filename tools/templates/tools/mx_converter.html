@@ -1,15 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="{% static 'style.css' %}">
-<body style="background-color:#1d2a35">
-<!--style="background-color:#302E2E"-->
-<h1 style="color:#FAFAFA">MX Converter</h1>
-<a style="color:#FAFAFA" href="/">Home</a>
-<form method="post">
-    <br><br><br>
-    <textarea rows="20" cols="60" name="mx" placeholder="{{ placeholder }}">{{ mx }}</textarea>
-    <br>
-    <input type="submit" value="Format">
-</body>
+<html lang="en">
+    <head>
+        <title>MX Converter</title>
+    </head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <body style="background-color:#1d2a35">
+        <!--style="background-color:#302E2E"-->
+        <h1 style="color:#FAFAFA">MX Converter</h1>
+        <a style="color:#FAFAFA" href="/">Home</a>
+        <form method="post">
+            <br>
+            <br>
+            <br>
+            <textarea rows="20" cols="60" name="mx" placeholder="{{ placeholder }}">{{ mx }}</textarea>
+            <br>
+            <input type="submit" value="Format">
+        </form>
+    </body>
 </html>
