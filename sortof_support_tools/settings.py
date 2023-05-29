@@ -127,7 +127,7 @@ STATIC_ROOT = ''
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = ("C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\static", 
-                    "/home/dlsuppto/django-apps/sortof_support_tools\\static")
+                    "/home/dlsuppto/django-apps/sortof_support_tools/static")
 
 
 # Default primary key field type
