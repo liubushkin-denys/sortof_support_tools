@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-58r5&a4zdszg*-kfz(&cv&cxp9))pa2qi9y8ua7=!1nir+vb!_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.0.120","dlsupptools.fun", "127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.0.120","dlsupptools.fun", "www.dlsupptools.fun", "127.0.0.1"]
 
 
 # Application definition
@@ -51,10 +51,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-STATICFILES_DIRS = [
-    "C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\static/",
-    "/home/dlsuppto/django-apps/sortof_support_tools/static/",
-      "http://dlsupptools.fun/static/"]
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static/')
+)
+
+#STATICFILES_DIRS = [
+#    "C:\\Users\\Ratpiss\\Desktop\\DjangoProj\\sortof_support_tools\\static/",
+#    "/home/dlsuppto/django-apps/sortof_support_tools/static/",
+#      "http://dlsupptools.fun/static/"]
 
 ROOT_URLCONF = 'sortof_support_tools.urls'
 
