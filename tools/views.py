@@ -3,12 +3,11 @@ from django.http import HttpResponse
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from whois import whois 
-import pandas as pd
 from dns.resolver import resolve
+
 
 # Create your views here.
 def index(request):
-    print(request)
     template = loader.get_template("tools/index.html")
     context = { 
         
@@ -34,9 +33,8 @@ def mx_converter(request):
         }
     else:
         template = loader.get_template("tools/mx_converter.html")
-        placeholder = """IN MX PRIORITY VALUE\n\nOR\n\nPRIORITY VALUE"""
         context = {
-            "placeholder" : placeholder,
+
     }
     return HttpResponse(template.render(context, request))
         
@@ -47,29 +45,23 @@ def domain(request):
     domain = 0
     if request.method == "POST":
         domain = str(request.POST["domain"]).replace('https://', '').replace('http://', '').replace('/','')
-        print(domain)
         #Gathering and formatting WHOIS data
         try: 
             whois_data = whois(domain)
-            print(whois_data)
         except Exception as e:
             print(e)
             context = {
                 "no_domain" : 1,
                 "e" : e,
             }
-            print('i am about to return')
             return HttpResponse(template.render(context, request))
         
-        print(type(whois_data["domain_name"]))
-        print(whois_data['domain_name'])
         if(whois_data["domain_name"]) == None:
-            print("domain name = null")
             context = {
                 "no_domain" : 1,
             }
             return HttpResponse(template.render(context, request))
-
+        
         if type(whois_data["domain_name"]) == list:
             domain_name = whois_data["domain_name"][0].lower()
         else:
@@ -96,7 +88,6 @@ def domain(request):
         status = whois_data["status"]
 
         #Gathering and formatting DNS records
-        print(domain)
         try:
             blank_a = resolve(domain, 'A')
         except Exception as e:

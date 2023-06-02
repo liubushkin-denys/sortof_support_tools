@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("tools.urls")),
     path('mx_converter/', include("tools.urls")),
+    path('domain/', include('tools.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

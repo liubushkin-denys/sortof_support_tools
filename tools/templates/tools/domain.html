@@ -5,31 +5,24 @@
         <title>WHOIS and DNS Lookup</title>
     </head>
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <body style="background-color:#1d2a35">
-        <!--style="background-color:#302E2E"-->
-        <h1 style="color:#FAFAFA">Domain Lookup</h1>
-        <a style="color:#FAFAFA" href="/">Home</a>
-        <form method="post">
-            <br>
-            <br>
-            <br>
+    <body>
+        <input class="button" type="button" onclick="window.location.href='/';" value="Home"/>
+        <h1>Domain Lookup</h1>  
+        <form class="form" method="post">
             <input type="text"
+                    class="text"
                    id="domain"
                    name="domain"
                    size="40"
                    value="{{ domain }}"
-                   placeholder="domain.tld"
                    autocomplete="off">
-            <br>
-            <input type="submit" value="Lookup">
+            <input class="button" type="submit" value="Lookup">
         </form>
-        <div style="color: #FAFAFA">
             {% if e %}{{ e }}{% endif %}
-        </div>
-        {% if no_domain %}<div style="color:#FAFAFA ">Domain does not exist.</div>{% endif %}
+        {% if no_domain %}Domain does not exist.{% endif %}
         {% if domain_name %}
-            <div class="row" style="color: #FAFAFA">
-                <div class="column">
+            <div class="row" >
+
                     <ul class="no-bullets">
                         WHOIS lookup
                         <li>Domain Name: {{ domain_name }}</li>
@@ -52,8 +45,6 @@
                             {% endif %}
                         </ul>
                     </ul>
-                </div>
-                <div class="column">
                     <ul class="no-bullets">
                         DNS records
                         <li>
@@ -91,7 +82,6 @@
                             </ul>
                         </li>
                     </ul>
-                </div>
             </div>
         {% endif %}
     </body>

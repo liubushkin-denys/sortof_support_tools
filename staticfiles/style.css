@@ -1,15 +1,62 @@
-.column {
-    float: left;
-    width: 50%;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+.row { 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: top;
+}
 
   .no-bullets {
     list-style-type: none;
+  }
+
+  .button {
+  position: relative;
+  background: #555;
+  color: #FAFAFA;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: visible;
+  border: 1px solid black;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  transition: 0.2s;
+  width: auto;
+  }
+
+  .form { 
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+  }
+
+  .textarea {
+    background-color: #121212;
+    color: #FAFAFA;
+    resize: none;
+    border-color: #555;
+  }
+
+  .text {
+    display: flex;
+    background-color: #121212;
+    color: #fafafac7;
+    border-color: #555;
+    font-size: 1rem;
+    padding: 1rem 1rem;
+  }
+
+  body {
+    color: #fafafae1;
+    background-color:#121212;
+    text-shadow: #1d2a35;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  a {
+    color: #FAFAFA;
   }
