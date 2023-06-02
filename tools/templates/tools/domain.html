@@ -33,7 +33,11 @@
                         <br>
                         <ul>
                             Name Servers
+                        {% if name_servers|length < 5 %}
                             {% for ns in name_servers %}<li>{{ ns }}</li>{% endfor %}
+                        {% else %}
+                            <li>{{ name_servers }}</li>
+                        {% endif %}
                         </ul>
                         <br>
                         <ul>

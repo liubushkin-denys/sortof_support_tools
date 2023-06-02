@@ -82,9 +82,14 @@ def domain(request):
             expiration_date = whois_data["expiration_date"][0]
         else:
             expiration_date = whois_data["expiration_date"]
-        for i in range(0, len(whois_data["name_servers"])):
-            whois_data["name_servers"][i] = whois_data["name_servers"][i].lower()
-        name_servers = set(whois_data["name_servers"])
+        if type(whois_data["name_servers"]) == list:
+            for i in range(0, len(whois_data["name_servers"])):
+                whois_data["name_servers"][i] = whois_data["name_servers"][i].lower()
+            name_servers = set(whois_data["name_servers"])
+        else:
+            whois_data["name_servers"] = whois_data["name_servers"].lower()
+            name_servers = whois_data["name_servers"]
+        
         status = whois_data["status"]
 
         #Gathering and formatting DNS records
